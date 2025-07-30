@@ -1,4 +1,3 @@
-const apiKey = "at_apb0p42sT78sszvkeVJXvaHWZXOdn"; // Replace with your actual API key
 
 const ipDisplay = document.getElementById("ip");
 const locationDisplay = document.getElementById("location");
@@ -16,12 +15,13 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // Fetch geolocation data
+// Secure: no API key exposed
 async function getGeoData(ip = "") {
-  const url = `https://geo.ipify.org/api/v2/country,city?apiKey=${apiKey}&ipAddress=${ip}`;
-  const res = await fetch(url);
-  const data = await res.json();
+  const response = await fetch(`/api/ip-lookup?ip=${ip}`);
+  const data = await response.json();
   return data;
 }
+
 
 // Update UI and map
 function updateUI(data) {
